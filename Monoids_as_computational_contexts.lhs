@@ -33,8 +33,6 @@ Next, let's import the needed modules:
 > module Main where
 > import Data.Monoid          -- obviously when we are talking monoids 
 > import Data.List            -- an interesting monoid, and some helper functions
-> import Control.Applicative  -- not sure actually ^^
-
 
 <h2>What we want to have</h2>
 
