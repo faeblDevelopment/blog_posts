@@ -1,4 +1,4 @@
-<h1>Monoid reduction parsing/execution</h1>
+<h1>Monoid reduction parsing/execution<h1>
 
 I gave our apprentice the excersise to write a program 
 that takes strings in the form 
@@ -36,7 +36,7 @@ Next, let's import the needed modules:
 > import Control.Applicative  -- not sure actually ^^
 
 
-<h2>What we want to have</h2>
+<h2>What we want to have<h2>
 
 What is is exactly what we want to have? We want something
 that expresses an idea for reducing a monoid string (a string
@@ -78,7 +78,7 @@ will be used at runtime.
 The `FlexibleInstances` extension allows us to specify an instance with a 
 `Num` constraint, to let us use the two instances with all `Num` instances.
 
-<h2>How do we work with this?</h2>
+<h2>How do we work with this?<h2>
 Let's define how we actually reduce a "monoid string" to the value it 
 represents.
 
@@ -118,7 +118,7 @@ The `splitOn` function itself is rather boilerplate:
 
 no funny business here.
 
-<h2>However...</h2>
+<h2>However...<h2>
 ... we would like an interface that is a bit simpler.
 Wouldn't it be nice, to write 
 
@@ -203,7 +203,7 @@ using a reducible:
 >   get    _ = intercalate [] 
 
 
-<h2>Final Words</h2>
+<h2>Final Words<h2>
 The final example along with the ability to shift the reduction step to the 
 reducible opens up insersting applications for implementing simple DSL computations
 or just fast, easily understandable parsers for complex data structures.
