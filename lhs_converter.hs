@@ -12,7 +12,7 @@ import System.Environment
 main = do
     args <- getArgs
     when (length args < 2) $
-        error "no files given"
+        error "not enough arguments given;\nlhs_converter (toLhs|toMd) files"
 
     files <- mapM (readFile) $ tail args
 
@@ -46,23 +46,24 @@ convertToMd = convert' ""
             rest = convert' h t
 
 convertToLhs :: [String] -> [String]
-convertToLhs s = convert' False False s 
+convertToLhs s = convert' False False "" s 
   where
-    convert' :: Bool -> Bool -> [String] -> [String]
-    convert' inCode inSample [] = []
-    convert' inCode inSample (h:t)
-        | inCode   && h /= "```"       = ["> " ++ h] ++ (convert' True False t)
-        | inSample && h /= "```"       = ["< " ++ h] ++ (convert' False True t)
+    convert' :: Bool -> Bool -> String -> [String] -> [String]
+    convert' inCode inSample prev [] = []
+    convert' inCode inSample prev (h:t)
+        | inCode   && h /= "```"       = ["> " ++ h] ++ (convert' True False h t)
+        | inSample && h /= "```"       = ["< " ++ h] ++ (convert' False True h t)
         | headingN h /= 0              = [headingO h ++ (tail $ dropWhile (=='#') h) ++ headingC h] ++ rest
-        | h == "```haskell"            = convert' True False t
-        | (inCode || inSample) && h == "```" = convert' False False t
-        | h == "```"                   = convert' False True t
+        | h == "```haskell"            = (if prev == "" then [] else [""]) ++ convert' True False prev t
+        | (inCode || inSample) && h == "```" = (if length t > 0 && (head t) == "" then [] else [""]) ++ convert' False False prev t
+        | take 3 h == "```"            = (if prev == "" then [] else [""]) ++ convert' False True prev t
+        | isFirstOO h ">"              = ["NOTE: " ++ drop 2 h] ++ rest
         | otherwise                    = h:rest
         where 
             headingO h = "<h" ++ show (headingN h) ++ ">"
             headingC h = "</h" ++ show (headingN h) ++ ">"
             headingN h = length $ takeWhile (=='#') h
-            rest = convert' False False t
+            rest = convert' False False h t
 
 isFirstOO :: String -> [Char] -> Bool
 isFirstOO l e = or $ map (isFirst l) e

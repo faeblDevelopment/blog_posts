@@ -7,13 +7,30 @@ or another website with markdown rendering capabilities.
 As it is always a drag to compile markdown with ghc especially if git flavoured
 md and html is used inside the document I  wrote `lhs_converter.hs`
 This nifty little tool comverts `md` files to compileable `lhs` by stripping away
-the heading tags `#`, replacing them with the corresponding html tags, and 
+the heading tags `#`, replacing them with the corresponding html tags,  
 converting the `''' haskell [...] '''` to `> [...]` as recognised by the 
 GHC literate prepocessor.
 `''' [...] '''` will be converted to `< [...]` and will be discarded by ghc
 but still be displayed as code when rendered.
+So other code or examples can be in the file.
 (In both cases `'''` is actually the three md backticks, but its a pain to 
-write md about md ^^
+write md about md ^^)
+Additionally,  Quotes/Notes in md files that are syntactically equivalent
+to the birdticks will be converted to `NOTE:`. So
+
+```
+> this is my 
+> multiline quote
+```
+
+becomes
+
+```
+NOTE: this is my
+NOTE: multiline quote
+```
+
+in the literate haskell file.
 
 to use `lhs_converter.hs` (either use `runhaskell` or compile it of course) supply
 it wit the following arguments:
