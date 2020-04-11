@@ -34,6 +34,7 @@ Next, let's import the needed modules:
 > import Data.Monoid          -- obviously when we are talking monoids 
 > import Data.List            -- an interesting monoid, and some helper functions
 
+
 <h2>What we want to have</h2>
 
 What is is exactly what we want to have? We want something
@@ -134,6 +135,7 @@ another function that returns strings, etc.
 `Data` typeclasses to automatically write such functions or return polymorphic
 results and work with them, but that is something for another post.)
  
+
 > reduce s
 >     | '+' `elem` s = reduce' s (mempty :: Sum Int)
 >     | '*' `elem` s = reduce' s (mempty :: Product Int)
@@ -195,6 +197,7 @@ which is sensitive to where in the list the operands are.
 As an additional example this is how one could implement string concattenation 
 using a reducible:
  
+
 > instance Reducible [] String where
 >   op     _ = '.'
 >   constr _ = (:[])

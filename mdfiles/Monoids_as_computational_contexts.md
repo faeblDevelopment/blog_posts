@@ -1,16 +1,16 @@
-<h1>Monoid reduction parsing/execution</h1>
+# Monoid reduction parsing/execution
 
 I gave our apprentice the excersise to write a program 
 that takes strings in the form 
 
-```haskell
+```
 "1+4+2+3"
 ```
 
 with variable length and write it in way that it is easily
 extendible to strings of the form
 
-```haskell
+```
 "1*2*3*4"
 ```
 
@@ -43,7 +43,7 @@ import Data.List            -- an interesting monoid, and some helper functions
 ```
 
 
-<h2>What we want to have</h2>
+## What we want to have
 
 What is is exactly what we want to have? We want something
 that expresses an idea for reducing a monoid string (a string
@@ -89,7 +89,7 @@ will be used at runtime.
 The `FlexibleInstances` extension allows us to specify an instance with a 
 `Num` constraint, to let us use the two instances with all `Num` instances.
 
-<h2>How do we work with this?</h2>
+## How do we work with this?
 Let's define how we actually reduce a "monoid string" to the value it 
 represents.
 
@@ -135,11 +135,11 @@ splitOn c (h:t)
 
 no funny business here.
 
-<h2>However...</h2>
+## However...
 ... we would like an interface that is a bit simpler.
 Wouldn't it be nice, to write 
 
-```haskell
+```
 reduce "1+2+3+4"
 ```
 
@@ -191,7 +191,7 @@ the binary monoid operation `<>`.
 What is this good for you ask?
 Monoids are bound by certain laws<sup id="laws">[1](#fn_laws)</sup>.
 
-```haskell
+```
 -- Identity laws
 x <> mempty = x
 mempty <> x = x
@@ -205,19 +205,19 @@ a monoid operation for division for example, as this would violate associativity
 However, moving the reduction operation to the reducible instead, we can specify
 a function that is not associative by just implementing a function from 
 
-```haskell
+```
 [Int] -> Int
 ```
 
 For example:
 
-```haskell
+```
 foldl (/) 1 list
 ```
 
 or even have a non binary function such as 
 
-```haskell
+```     
 f l = func l True
   where
     func []       _     = []
@@ -240,7 +240,7 @@ instance Reducible [] String where
 ```
 
 
-<h2>Final Words</h2>
+## Final Words
 The final example along with the ability to shift the reduction step to the 
 reducible opens up insersting applications for implementing simple DSL computations
 or just fast, easily understandable parsers for complex data structures.
