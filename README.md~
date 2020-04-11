@@ -49,7 +49,3 @@ the code is not yet the most beautiful or efficient and not tested with 100 docu
 it is just a tool i needed fast and serves its purpose (though pretty well actually ^^)
 but I'll keep working on it when the need arises...
 have fun with it ;)
-
-
-## Update:
-A stable actively maintained version of the lhs_converter will be available as a package to download via stack/cabal soon.
